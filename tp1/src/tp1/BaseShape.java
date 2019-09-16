@@ -10,7 +10,7 @@ public class BaseShape {
 
     // TODO Initialiser les points.
     public BaseShape() {
-        coordss
+        coords = new HashSet<Point2d>();
     }
 
     // TODO prendre une liste de points et creer une nouvelle forme.
@@ -77,7 +77,7 @@ public class BaseShape {
 
     // TODO retourner une nouvelle forme.
     public BaseShape clone() {
-        BaseShape monClone = new BaseShape(coords)
+        BaseShape monClone = new BaseShape(coords);
         return monClone;
     }
 }
