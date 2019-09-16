@@ -55,11 +55,15 @@ public final class PointOperator {
         Double x;
         Double y;
 
-        for (int i=0; i<coords.size(); )
-        coords[i] ;
+       // for (int i=0; i<coords.size(); )
+        /* coords[i] ;
 
         Double vector = new Double [] {x,y};
         return new Point2d(vector);
+
+
+         */
+        return null;
     }
 
     // TODO retourne la coordonnee avec les plus petites valeurs en X et en Y.

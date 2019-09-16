@@ -27,8 +27,8 @@ public class Point2d extends AbstractPoint {
 
     // TODO prendre un point et appliquer la translation.
     public Point2d translate(Point2d translateVector) {
-
-        return new Point2d(PointOperator.translate());
+        return translateVector;
+       // return new Point2d(PointOperator.translate());
     }
 
 
