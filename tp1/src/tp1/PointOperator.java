@@ -52,23 +52,37 @@ public final class PointOperator {
 
     // TODO retourne la coordonnee avec les plus grandes valeurs en X et en Y.
     public static Point2d getMaxCoord(Collection<Point2d> coords) {
-        Double x;
-        Double y;
+        Double xMax = Double.NEGATIVE_INFINITY;
+        Double yMax = Double.NEGATIVE_INFINITY;
 
-       // for (int i=0; i<coords.size(); )
-        /* coords[i] ;
+       for (Point2d element : coords ){
+          if (element.X() >  xMax)
+              xMax = element.X();
+          if (element.Y() > yMax)
+              yMax = element.Y();
+       }
 
-        Double vector = new Double [] {x,y};
+
+        Double[] vector = new Double [] {xMax,yMax};
         return new Point2d(vector);
 
-
-         */
-        return null;
     }
 
     // TODO retourne la coordonnee avec les plus petites valeurs en X et en Y.
     public static Point2d getMinCoord(Collection<Point2d> coords) {
+        Double xMin = Double.POSITIVE_INFINITY;
+        Double yMin = Double.POSITIVE_INFINITY;
 
-        return null;
+        for (Point2d element : coords ){
+                if (element.X() < xMin)
+                    xMin = element.X();
+                if (element.Y() < yMin)
+                    yMin = element.Y();
+
+        }
+
+
+        Double[] vector = new Double [] {xMin,yMin};
+        return new Point2d(vector);
     }
 }
