@@ -10,7 +10,7 @@ public class BaseShape {
 
     // TODO Initialiser les points.
     public BaseShape() {
-        coordss
+        coords = new HashSet<Point2d>();
     }
 
     // TODO prendre une liste de points et creer une nouvelle forme.
@@ -36,7 +36,7 @@ public class BaseShape {
         coords.remove(coord);
     }
     public void remove(BaseShape shape) {
-        this.remove(shape);
+
     }
     public void removeAll(Collection<Point2d> coords) {
         this.removeAll(coords);
