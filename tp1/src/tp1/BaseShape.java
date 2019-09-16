@@ -10,61 +10,74 @@ public class BaseShape {
 
     // TODO Initialiser les points.
     public BaseShape() {
-        coords = new HashSet<>() ;
+        coordss
     }
 
     // TODO prendre une liste de points et creer une nouvelle forme.
     public BaseShape(Collection<Point2d> coords) {
-        // ...
+        for (Point2d element: coords) {
+            this.add(element);
+        }
     }
 
     // TODO ajouter ou retirer des coordonnees a la liste de points.
     public void add(Point2d coord) {
-        // ...
+        coords.add(coord);
     }
     public void add(BaseShape shape) {
-        // ...
+        this.add(shape);
     }
     public void addAll(Collection<Point2d> coords) {
-        // ...
+        for(Point2d element : coords){
+            this.addAll(coords);
+        }
     }
     public void remove(Point2d coord) {
-        // ...
+        coords.remove(coord);
     }
     public void remove(BaseShape shape) {
-        // ...
+        this.remove(shape);
     }
     public void removeAll(Collection<Point2d> coords) {
-        // ...
+        this.removeAll(coords);
     }
 
     // TODO retourne les coordonnees de la liste.
     public Set<Point2d> getCoords() {
-        return null;
+        return coords;
     }
 
     // TODO appliquer la translation sur la forme.
     public BaseShape translate(Point2d point) {
-        return null;
+        this.translate(point);
+        return this;
     }
 
     // TODO appliquer la translation sur la liste.
     public Set<Point2d> translateAll(Point2d point) {
+        for (Point2d element: coords) {
+            element.translate(point);
+        }
         return null;
     }
 
     // TODO appliquer la rotation sur la forme.
     public BaseShape rotate(Double angle) {
-        return null;
+        this.rotate(angle);
+        return this;
     }
 
     // TODO appliquer la rotation sur la liste.
     public Set<Point2d> rotateAll(Double angle) {
+        for (Point2d element: coords) {
+            element.rotate(angle);
+        }
         return null;
     }
 
     // TODO retourner une nouvelle forme.
     public BaseShape clone() {
-        return this;
+        BaseShape monClone = new BaseShape(coords)
+        return monClone;
     }
 }
