@@ -36,7 +36,7 @@ public class BaseShape {
         coords.remove(coord);
     }
     public void remove(BaseShape shape) {
-        this.remove(shape);
+
     }
     public void removeAll(Collection<Point2d> coords) {
         this.removeAll(coords);
