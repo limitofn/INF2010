@@ -15,12 +15,13 @@ public final class PointOperator {
     // TODO appliquer la rotation sur le vecteur d'entree.
     public static Double[] rotate(Double[] vector, Double[][] rotationMatrix) {
         Double[] rotatedVector= new Double[vector.length];
-        Arrays.fill(rotatedVector, 0);
-        for (int colonne=0; colonne<rotationMatrix.length; colonne++){
-            for(int ligne=0; ligne<rotationMatrix[colonne].length; ligne++){
-                rotatedVector[colonne]+= (vector[ligne] * rotationMatrix[ligne][colonne]);
-            }
-        }
+        Arrays.fill(rotatedVector, 0.0);
+        // le vecteur final n'a qu'une seule ligne
+            for (int colonne = 0; colonne < vector.length; colonne++)
+                for (int k = 0; k < vector.length; k++){
+                    rotatedVector[colonne] += vector[k]*rotationMatrix[colonne][k];
+                }
+
 
         return rotatedVector;
     }
