@@ -29,18 +29,18 @@ public class Rectangle extends BaseShape {
     @Override
     public Rectangle translate(Point2d point) {
 
-        return this;
+        return new Rectangle(translateAll(point));
     }
 
     // TODO appliquer la rotation sur la forme.
     @Override
     public Rectangle rotate(Double angle) {
-        return null;
+        return new Rectangle(rotateAll(angle));
     }
 
     // TODO retourner une nouvelle forme.
     @Override
     public Rectangle clone() {
-        return null;
+        return new Rectangle(getCoords());
     }
 }
