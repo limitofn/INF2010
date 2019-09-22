@@ -22,9 +22,11 @@ public class BaseShape {
     public void add(Point2d coord) {
         this.coords.add(coord);
     }
+
     public void add(BaseShape shape) {
         this.addAll(shape.coords);
     }
+
     public void addAll(Collection<Point2d> coords) {
         for(Point2d element : coords){
             this.add(element);
@@ -33,8 +35,9 @@ public class BaseShape {
     public void remove(Point2d coord) {
         this.coords.remove(coord);
     }
-    public void remove(BaseShape shape) {
 
+    public void remove(BaseShape shape) {
+        this.coords.removeAll(shape.coords);
     }
     public void removeAll(Collection<Point2d> coords) {
         this.coords.removeAll(coords);
