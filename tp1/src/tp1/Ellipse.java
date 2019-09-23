@@ -6,7 +6,7 @@ public class Ellipse extends BaseShape {
     // TODO creer une ellipse avec une largeur et une longueur.
     public Ellipse(Double widthRadius, Double heightRadius) {
         for (Double i = -widthRadius; i <= widthRadius; i++){
-            for (Double j = -heightRadius; i <= heightRadius; j++ )
+            for (Double j = -heightRadius; j <= heightRadius; j++ )
                 if (Math.pow(i,2)/Math.pow(widthRadius,2) + Math.pow(j,2)/Math.pow(heightRadius,2) <= 1){
                     this.add(new Point2d(i,j));
                 }
