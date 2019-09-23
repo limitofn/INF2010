@@ -13,7 +13,7 @@ public class Point2d extends AbstractPoint {
 
 
     public Point2d(Double[] vector) {
-        super(vector);
+        super(vector.clone());
     }
 
     public Double X() { return vector[X];}
@@ -22,7 +22,7 @@ public class Point2d extends AbstractPoint {
 
     @Override
     public Point2d translate(Double[] translateVector) {
-        return new Point2d (PointOperator.translate( vector, translateVector));
+        return new Point2d (PointOperator.translate( vector.clone(), translateVector));
     }
 
     // TODO prendre un point et appliquer la translation.
@@ -34,7 +34,7 @@ public class Point2d extends AbstractPoint {
 
     @Override
     public Point2d rotate(Double[][] rotationMatrix) {
-        return new Point2d(PointOperator.rotate(vector, rotationMatrix));
+        return new Point2d(PointOperator.rotate(vector.clone(), rotationMatrix));
     }
 
 
@@ -42,25 +42,25 @@ public class Point2d extends AbstractPoint {
         Double cosRotate = Math.cos (angle);
         Double sinRotate = Math.sin (angle);
         Double[][] matrixRotation = new Double[][] {{cosRotate, -sinRotate}, {sinRotate, cosRotate}};
-        return new Point2d(PointOperator.rotate(vector, matrixRotation));
+        return new Point2d(PointOperator.rotate(vector.clone(), matrixRotation));
     }
 
 
     @Override
     public Point2d divide(Double divider) {
-        return new Point2d(PointOperator.divide(vector, divider));
+        return new Point2d(PointOperator.divide(vector.clone(), divider));
     }
 
 
     @Override
     public Point2d multiply(Double multiplier) {
-        return new Point2d(PointOperator.multiply(vector, multiplier));
+        return new Point2d(PointOperator.multiply(vector.clone(), multiplier));
     }
 
 
     @Override
     public Point2d add(Double adder) {
-        return  new Point2d(PointOperator.add(vector, adder));
+        return  new Point2d(PointOperator.add(vector.clone(), adder));
     }
 
 
