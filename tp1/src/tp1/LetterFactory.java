@@ -9,22 +9,36 @@ public final class LetterFactory {
 
     // TODO
     public static BaseShape create_H() {
-        return null;
+        BaseShape verticalStripeGauche = new Rectangle(stripeThickness, maxHeight);
+        Double angle = Math.toRadians(90);
+        BaseShape horizontalStripe = new Rectangle(stripeThickness, maxHeight/2).rotate(-angle).translate(new Point2d(0.0, halfMaxHeight));
+        BaseShape verticaleStripeDroite = verticalStripeGauche.translate(new Point2d(maxWidth,0.0));
+        verticalStripeGauche.add(horizontalStripe);
+        verticalStripeGauche.add(verticaleStripeDroite);
+        return verticalStripeGauche;
     }
 
     // TODO
     public static BaseShape create_e() {
-        return null;
+        BaseShape ellispeEnFormeE = new Ellipse(maxWidth, maxHeight);
+        Double angle= Math.toRadians(90);
+        BaseShape rectangleMilieu= new Rectangle(stripeThickness, maxWidth-15).rotate(-angle).translate(new Point2d(0.0,halfMaxHeight));
+        BaseShape rectangleDeleteUnePartieDeEllipse = new Rectangle(stripeThickness, halfMaxWidth).rotate(-angle).translate(new Point2d(halfMaxWidth,halfMaxHeight+stripeThickness));
+        ellispeEnFormeE.add(rectangleMilieu);
+        ellispeEnFormeE.remove(rectangleDeleteUnePartieDeEllipse);
+        return ellispeEnFormeE;
     }
 
     // TODO
     public static BaseShape create_l() {
-        return null;
+        BaseShape formeEnL = new Rectangle(stripeThickness, maxHeight);
+        return formeEnL;
     }
 
     // TODO
     public static BaseShape create_o() {
-        return null;
+        BaseShape formeEnO = new Ellipse(maxWidth, maxHeight);
+        return formeEnO;
     }
 
     // On vous donne la lettre W comme exemple.
@@ -44,11 +58,19 @@ public final class LetterFactory {
 
     // TODO
     public static BaseShape create_r() {
-        return null;
+        BaseShape formeEnR= new Rectangle(stripeThickness,maxHeight);
+        BaseShape demiCercle = new Circle(maxWidth).translate(new Point2d(0.0,10.0));
+        BaseShape eliminateurDeDemiCercle = new Square(maxWidth).translate(new Point2d(0.0,halfMaxHeight/2));
+        demiCercle.remove(eliminateurDeDemiCercle);
+        formeEnR.add(demiCercle);
+        return formeEnR;
     }
 
     // TODO
     public static BaseShape create_d() {
-        return null;
+        BaseShape formeEnD = new Rectangle(stripeThickness,maxHeight).translate(new Point2d(maxWidth,0.0));
+        BaseShape circle = new Circle(maxWidth).translate(new Point2d(stripeThickness-10, maxWidth));
+        formeEnD.add(circle);
+        return formeEnD;
     }
 }
