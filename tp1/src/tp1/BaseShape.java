@@ -45,7 +45,9 @@ public class BaseShape {
 
     // TODO retourne les coordonnees de la liste.
     public Set<Point2d> getCoords() {
-        return coords;
+        Set<Point2d> copy = new HashSet<>();
+        copy.addAll(coords);
+        return copy;
     }
 
     // TODO appliquer la translation sur la forme.
