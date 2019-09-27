@@ -9,47 +9,50 @@ public final class LetterFactory {
 
     // TODO
     public static BaseShape create_H() {
-        BaseShape verticalStripeGauche = new Rectangle(stripeThickness, maxHeight);
+        BaseShape mainStripe = new Rectangle(stripeThickness, maxHeight);
+        BaseShape smallStripe = new Rectangle(stripeThickness, maxWidth);
         Double angle = Math.toRadians(90);
-        BaseShape horizontalStripe = new Rectangle(stripeThickness, maxHeight/2).rotate(-angle).translate(new Point2d(0.0, halfMaxHeight));
-        BaseShape verticaleStripeDroite = verticalStripeGauche.translate(new Point2d(maxWidth,0.0));
-        verticalStripeGauche.add(horizontalStripe);
-        verticalStripeGauche.add(verticaleStripeDroite);
-        return verticalStripeGauche;
+        BaseShape middleStripe = smallStripe.rotate(-angle).translate(new Point2d(-halfMaxWidth, halfMaxHeight));
+        BaseShape rightSide = mainStripe.translate(new Point2d(-halfMaxWidth,0.0));
+        BaseShape leftSide = mainStripe.translate(new Point2d(halfMaxWidth,0.0));
+        leftSide.add(middleStripe);
+        leftSide.add(rightSide);
+        return leftSide;
     }
 
     // TODO
     public static BaseShape create_e() {
-        BaseShape ellispeEnFormeE = new Ellipse(maxWidth, maxHeight);
-        Double angle= Math.toRadians(90);
-        BaseShape rectangleMilieu= new Rectangle(stripeThickness, maxWidth-15).rotate(-angle).translate(new Point2d(0.0,halfMaxHeight));
-        BaseShape rectangleDeleteUnePartieDeEllipse = new Rectangle(stripeThickness, halfMaxWidth).rotate(-angle).translate(new Point2d(halfMaxWidth,halfMaxHeight+stripeThickness));
-        ellispeEnFormeE.add(rectangleMilieu);
-        ellispeEnFormeE.remove(rectangleDeleteUnePartieDeEllipse);
-        return ellispeEnFormeE;
+        BaseShape ellipse = new Ellipse(maxWidth, maxHeight).translate(new Point2d(-halfMaxWidth,0.0));
+        BaseShape mainStripe = new Rectangle(stripeThickness, halfMaxHeight-5);
+        Double angle = Math.toRadians(90);
+        BaseShape addedStripe = mainStripe.rotate(-angle).translate(new Point2d(-halfMaxWidth,halfMaxHeight));
+        BaseShape deletedStripe = mainStripe.rotate(-angle).translate(new Point2d((maxWidth/2)-halfMaxWidth,halfMaxHeight+stripeThickness));
+        ellipse.add(addedStripe);
+        ellipse.remove(deletedStripe);
+        return ellipse;
     }
 
     // TODO
     public static BaseShape create_l() {
-        BaseShape formeEnL = new Rectangle(stripeThickness, maxHeight);
+        BaseShape formeEnL = new Rectangle(stripeThickness, maxHeight).translate(new Point2d(-halfMaxWidth/4,0.0));
         return formeEnL;
     }
 
     // TODO
     public static BaseShape create_o() {
-        BaseShape formeEnO = new Ellipse(maxWidth, maxHeight);
-        return formeEnO;
+        BaseShape circle = new Ellipse(maxWidth, maxHeight).translate(new Point2d(-halfMaxWidth,0.0));
+        return circle;
     }
 
     // On vous donne la lettre W comme exemple.
     public static BaseShape create_W() {
         Double degrees15 = Math.toRadians(8);
-        Double spacing = stripeThickness * 2;
+        Double spacing = halfMaxWidth/2;
         BaseShape mainStripe = new Rectangle(stripeThickness, maxHeight);
-        BaseShape leftStripe = mainStripe.rotate(-degrees15).translate(new Point2d(-spacing, 0.0));
-        BaseShape middleLeftStripe = mainStripe.rotate(degrees15).translate(new Point2d(-spacing / 3, 0.0));
-        BaseShape middleRightStripe = mainStripe.rotate(-degrees15).translate(new Point2d(spacing / 3, 0.0));
-        BaseShape rightStripe = mainStripe.rotate(degrees15).translate(new Point2d(spacing, 0.0));
+        BaseShape leftStripe = mainStripe.rotate(-degrees15).translate(new Point2d(-spacing*2.5, 0.0));
+        BaseShape middleLeftStripe = mainStripe.rotate(degrees15).translate(new Point2d(spacing/8, 0.0));
+        BaseShape middleRightStripe = mainStripe.rotate(-degrees15).translate(new Point2d(spacing / 6, 3.0));
+        BaseShape rightStripe = mainStripe.rotate(degrees15).translate(new Point2d(spacing*2.7, 0.0));
         leftStripe.add(middleLeftStripe);
         leftStripe.add(middleRightStripe);
         leftStripe.add(rightStripe);
@@ -58,19 +61,24 @@ public final class LetterFactory {
 
     // TODO
     public static BaseShape create_r() {
-        BaseShape formeEnR= new Rectangle(stripeThickness,maxHeight);
-        BaseShape demiCercle = new Circle(maxWidth).translate(new Point2d(0.0,10.0));
-        BaseShape eliminateurDeDemiCercle = new Square(maxWidth).translate(new Point2d(0.0,halfMaxHeight/2));
-        demiCercle.remove(eliminateurDeDemiCercle);
-        formeEnR.add(demiCercle);
-        return formeEnR;
+        BaseShape mainStripe = new Rectangle(stripeThickness, maxHeight);
+        BaseShape mainCircle = new Circle(maxWidth);
+        BaseShape mainSquare = new Square(maxWidth);
+        BaseShape verticalStripe = mainStripe.translate(new Point2d(-halfMaxWidth,0.0));
+        BaseShape circle = mainCircle.translate(new Point2d(-halfMaxWidth,10.0));;
+        BaseShape square = mainSquare.translate(new Point2d(-halfMaxWidth,halfMaxHeight/2));
+        circle.remove(square);
+        verticalStripe.add(circle);
+        return verticalStripe;
     }
 
     // TODO
     public static BaseShape create_d() {
-        BaseShape formeEnD = new Rectangle(stripeThickness,maxHeight).translate(new Point2d(maxWidth,0.0));
-        BaseShape circle = new Circle(maxWidth).translate(new Point2d(stripeThickness-10, maxWidth));
-        formeEnD.add(circle);
-        return formeEnD;
+        BaseShape mainStripe = new Rectangle(stripeThickness, maxHeight);
+        BaseShape mainCircle = new Circle(maxWidth);
+        BaseShape verticalStripe = mainStripe.translate(new Point2d(halfMaxWidth-12,0.0));
+        BaseShape circle = mainCircle.translate(new Point2d(stripeThickness-22-halfMaxWidth,maxHeight - maxWidth));
+        verticalStripe.add(circle);
+        return verticalStripe;
     }
 }
