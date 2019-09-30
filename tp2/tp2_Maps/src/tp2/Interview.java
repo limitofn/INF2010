@@ -1,6 +1,7 @@
 package tp2;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Interview {
 
@@ -11,19 +12,21 @@ public class Interview {
      * @return A collection containing all valid pairs with no permutations, but all combinations (empty collection if none found)
      */
 
-    // Utiliser Heapsort semble wise, mais BUBBLESORT IS THE BEST
-    public Collection<MatchingPair> bubbleSort(Collection<Integer> values){
-        int n = values.size();
-        int temp = 0;
-
-        for (int i=0; i < n; i++){
-            for (int j = 0; j < (n-i); j++){
-                if (values.)
-            }
-        }
-    }
+// methode par hashage
 
     public Collection<MatchingPair> matchingPairs(Collection<Integer> values, Integer targetSum){
+        HashSet<Integer> table = new HashSet<Integer>();
+        Collection col = new Collection<MatchingPair>();
+        for (Integer element : values){
+            int temp = targetSum - element;
+
+            // on regarde si c'est egal
+            if(table.contains(temp)){
+                System.out.println("Pair with given sum " + targetSum + " is (" + element + ", " + temp + ")");
+
+            }
+            table.add(element);
+        }
         return null;
     }
 }
