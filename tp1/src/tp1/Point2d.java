@@ -65,7 +65,7 @@ public class Point2d extends AbstractPoint {
 
     @Override
     public Point2d clone() {
-        Point2d monClone = new Point2d(vector);
+        Point2d monClone = new Point2d(vector.clone());
         return monClone;
     }
 }
