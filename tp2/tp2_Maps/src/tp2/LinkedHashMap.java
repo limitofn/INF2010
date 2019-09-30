@@ -34,11 +34,26 @@ public class LinkedHashMap<KeyType, DataType> {
         return size * COMPRESSION_FACTOR > capacity;
     }
 
-    /** TODO
+    /** TODO -- LES NEXT?
      * Increases capacity by CAPACITY_INCREASE_FACTOR (multiplication) and
      * reassigns all contained values within the new map
      */
     private void rehash() {
+        Node<KeyType,DataType>[] oldmap = map;
+
+        map = new Node[capacity*CAPACITY_INCREASE_FACTOR];
+        // Initialisation a zero
+        for (int i = 0; i < capacity*CAPACITY_INCREASE_FACTOR; i++){
+            map[i] = null;
+        }
+        size = 0;
+        capacity = capacity * CAPACITY_INCREASE_FACTOR;
+        for (int i = 0; i < oldmap.length ; i++){
+            if (oldmap[i]!= null) {
+                put(oldmap[i].key, oldmap[i].data);
+            }
+        }
+
     }
 
     public int size() {
@@ -59,6 +74,7 @@ public class LinkedHashMap<KeyType, DataType> {
      * @return if key is already used in map
      */
     public boolean containsKey(KeyType key) {
+
         return false;
     }
 
@@ -77,6 +93,7 @@ public class LinkedHashMap<KeyType, DataType> {
      * @return Old DataType instance at key (null if none existed)
      */
     public DataType put(KeyType key, DataType value) {
+
         return null;
     }
 
