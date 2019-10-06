@@ -1,5 +1,7 @@
 package tp2;
 
+import java.security.Key;
+
 public class LinkedHashMap<KeyType, DataType> {
 
     private static final double COMPRESSION_FACTOR = 2; // 50%
@@ -34,26 +36,24 @@ public class LinkedHashMap<KeyType, DataType> {
         return size * COMPRESSION_FACTOR > capacity;
     }
 
-    /** TODO -- LES NEXT?
+    /**
      * Increases capacity by CAPACITY_INCREASE_FACTOR (multiplication) and
      * reassigns all contained values within the new map
      */
     private void rehash() {
-        Node<KeyType,DataType>[] oldmap = map;
 
-        map = new Node[capacity*CAPACITY_INCREASE_FACTOR];
-        // Initialisation a zero
-        for (int i = 0; i < capacity*CAPACITY_INCREASE_FACTOR; i++){
-            map[i] = null;
-        }
-        size = 0;
-        capacity = capacity * CAPACITY_INCREASE_FACTOR;
-        for (int i = 0; i < oldmap.length ; i++){
-            if (oldmap[i]!= null) {
-                put(oldmap[i].key, oldmap[i].data);
+        int newCapacity = capacity*CAPACITY_INCREASE_FACTOR;
+        Node<KeyType,DataType> [] newMap = new Node [newCapacity];
+        int newIndex, oldCapacity = capacity;
+        capacity =newCapacity;
+        for (int i = 0; i<oldCapacity; i++){
+            while (map[i] != null){
+                newIndex = getIndex(map[i].key);
+                newMap[newIndex] = map[i];
+                map[i]= map[i].next;
             }
         }
-
+        map = newMap;
     }
 
     public int size() {
@@ -74,6 +74,23 @@ public class LinkedHashMap<KeyType, DataType> {
      * @return if key is already used in map
      */
     public boolean containsKey(KeyType key) {
+        int index = getIndex(key);
+        Node<KeyType, DataType> node = map[index];
+
+        if(node == null) {
+            return false;
+        }
+
+        while(node.next != null) {
+            if(node.key.equals(key)){
+                return true;
+            }
+            node = node.next;
+        }
+
+        if (node.key.equals(key)){
+            return true;
+        }
 
         return false;
     }
@@ -84,6 +101,28 @@ public class LinkedHashMap<KeyType, DataType> {
      * @return DataType instance attached to key (null if not found)
      */
     public DataType get(KeyType key) {
+
+        int index = getIndex(key);
+        Node<KeyType, DataType> node =map[index];
+        DataType value;
+
+        if(node == null){
+            return null;
+        }
+
+        while (node.next !=null){
+            if(node.key.equals(key)){
+                value =node.data;
+                return value;
+            }
+            node = node.next;
+        }
+
+        if (node.key.equals(key)){
+            value = node.data;
+            return value;
+        }
+
         return null;
     }
 
@@ -110,6 +149,16 @@ public class LinkedHashMap<KeyType, DataType> {
      * Removes all nodes contained within the map
      */
     public void clear() {
+
+        int deleteCounter = 0;
+        int position= 0;
+        while (deleteCounter != size){
+            if (map[position] != null){
+                map [position] = null;
+                deleteCounter++;
+            }
+            position++;
+        }
 
     }
 
