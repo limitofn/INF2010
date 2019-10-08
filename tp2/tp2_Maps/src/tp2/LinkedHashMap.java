@@ -133,7 +133,41 @@ public class LinkedHashMap<KeyType, DataType> {
      */
     public DataType put(KeyType key, DataType value) {
 
-        return null;
+        int index = getIndex(key);
+        Node<KeyType,DataType> node = map[index];
+        Node<KeyType,DataType> oldNode = map[index];
+        DataType oldValue;
+
+        if (node == null){
+            map[index] = new Node<KeyType,DataType>(key, value);
+            size++;
+            if(shouldRehash())
+                rehash();
+            return null;
+        }
+
+        while(node.next != null){
+            if (node.key.equals(key)){
+                oldValue = node.data;
+                node.data = value;
+                return oldValue;
+            }
+            node = node.next;
+        }
+
+        if (node.key.equals(key)){
+            oldValue = node.data;
+            node.data = value;
+            return oldValue;
+        }
+
+        oldValue = oldNode.data;
+        node.next = new Node <KeyType, DataType> (key, value);
+        size++;
+        if (shouldRehash())
+            rehash();
+
+        return oldValue;
     }
 
     /** TODO
