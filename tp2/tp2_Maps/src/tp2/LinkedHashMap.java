@@ -176,6 +176,56 @@ public class LinkedHashMap<KeyType, DataType> {
      * @return Old DataType instance at key (null if none existed)
      */
     public DataType remove(KeyType key) {
+
+        int index = getIndex(key);
+        Node <KeyType, DataType> previousNode = map[index];
+        DataType value;
+        if (previousNode == null) {
+            return null;
+        }
+
+        // Noeud attacher qu'on doit retirer
+        Node<KeyType,DataType> currentNode = previousNode.next;
+
+        if(currentNode == null){
+            if (previousNode.key.equals(key)){
+                value = previousNode.data;
+                previousNode = null;
+                size--;
+                return value;
+            }
+        }
+
+        //Noeud qu'on doit relier afin que la map continue de fonctionne correctement
+        Node<KeyType,DataType> followingNode = currentNode.next;
+
+        if (previousNode.key.equals(key)){
+            value = previousNode.data;
+            previousNode= currentNode;
+            previousNode.next = followingNode;
+            size--;
+            return value;
+        }
+
+        while(followingNode !=null){
+            if(currentNode.key.equals(key)){
+                value = currentNode.data;
+                previousNode.next= followingNode;
+                size--;
+                return value;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+            followingNode =currentNode.next;
+        }
+
+        if (currentNode.key.equals(key)){
+            value = currentNode.data;
+            previousNode.next = followingNode;
+            size--;
+            return value;
+        }
+
         return null;
     }
 
