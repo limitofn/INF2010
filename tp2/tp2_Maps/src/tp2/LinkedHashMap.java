@@ -1,7 +1,5 @@
 package tp2;
 
-import java.security.Key;
-
 public class LinkedHashMap<KeyType, DataType> {
 
     private static final double COMPRESSION_FACTOR = 2; // 50%
