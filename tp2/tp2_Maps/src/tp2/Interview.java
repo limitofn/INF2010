@@ -1,8 +1,10 @@
 package tp2;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
+
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
 
 public class Interview {
 
@@ -16,31 +18,58 @@ public class Interview {
 
 // methode par hashage
     public Collection<MatchingPair> matchingPairs(Collection<Integer> values, Integer targetSum) {
-        HashMap<Integer, Integer> table = new HashMap<Integer, Integer>();
-        Collection col = new LinkedList();
+        LinkedHashMap<Integer, Integer> tableCompteur = new LinkedHashMap<>();
+        LinkedHashMap<Integer, Integer> tablePaire = new LinkedHashMap<Integer, Integer>();
+        Collection<MatchingPair> paireSansDuplication = new LinkedList();
+        Collection<MatchingPair> solution = new LinkedList();
+
+        // On itere sur les valeurs donnee pour savoir le compte de chaque valeur
+        for (Integer valeur : values) {
+            if (tableCompteur.containsKey(valeur)) {
+                if (tableCompteur.get(valeur) != null) {
+                    // Partie Compteur
+                    Integer compteur = tableCompteur.get(valeur);
+                    compteur++;
+
+                    tableCompteur.put(valeur, compteur);
+                } else {
+                    tableCompteur.put(valeur, 0);
+                }
+            }
+        }
+
+// On itere sur les valeurs donnee pour savoir les paires
         for (Integer element : values) {
             int temp = targetSum - element;
-            if (table.containsKey(element)) {
-                if (table.get(element) != null) {
-                    col.add(new MatchingPair(element, temp));
+            if (tablePaire.containsKey(element)) {
+                if (tablePaire.get(element) != null) {
+                    paireSansDuplication.add(new MatchingPair(element, temp));
                     System.out.println("Pair with given sum " + targetSum + " is (" + element + ", " + temp + ")");
                 }
-                table.put(temp, null);
+                tablePaire.put(temp, null);
+            } else if (!tablePaire.containsKey(element)) {
+                tablePaire.put(temp, element);
             }
-
-            else if (!table.containsValue(element)) {
-                table.put(temp,element);
-            }
-
-
         }
-        return col;
+
+        // On trouve le minimum count entre les paire et leur compte pour tenir en compte de toutes les possibilites. Ici le meilleur cas reste O(n) ( pas de paire)
+        for (MatchingPair paire : paireSansDuplication){
+            int minCount = min(tableCompteur.get(paire.first).intValue(),tableCompteur.get(paire.second).intValue());
+            for (int i = 0; i < pow(minCount,2); i++){
+                solution.add(new MatchingPair(paire.first,paire.second));
+            }
+        }
+        System.out.println(solution.size());
+        return solution;
+
+
     }
 }
 
+
 /* on regarde si c'est egal
-            if(table.contains(temp)){
-                    // System.out.println("Pair with given sum " + targetSum + " is (" + element + ", " + temp + ")");
-                    col.add(new MatchingPair(element, temp));
+            if(table.contains(complementaire)){
+                    // System.out.println("Pair with given sum " + targetSum + " is (" + valeur + ", " + complementaire + ")");
+                    solution.add(new MatchingPair(valeur, complementaire));
                     }
-                    table.add(element);*/
+                    table.add(valeur);*/
