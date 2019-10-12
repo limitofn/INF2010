@@ -3,7 +3,6 @@ package tp2;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static java.lang.Math.min;
 import static java.lang.Math.pow;
 
 public class Interview {
@@ -26,16 +25,17 @@ public class Interview {
         // On itere sur les valeurs donnee pour savoir le compte de chaque valeur
         for (Integer valeur : values) {
             if (tableCompteur.containsKey(valeur)) {
-                if (tableCompteur.get(valeur) != null) {
+
                     // Partie Compteur
                     Integer compteur = tableCompteur.get(valeur);
                     compteur++;
-
                     tableCompteur.put(valeur, compteur);
-                } else {
+            }
+                else {
+
                     tableCompteur.put(valeur, 0);
                 }
-            }
+
         }
 
 // On itere sur les valeurs donnee pour savoir les paires
@@ -44,7 +44,7 @@ public class Interview {
             if (tablePaire.containsKey(element)) {
                 if (tablePaire.get(element) != null) {
                     paireSansDuplication.add(new MatchingPair(element, temp));
-                    System.out.println("Pair with given sum " + targetSum + " is (" + element + ", " + temp + ")");
+
                 }
                 tablePaire.put(temp, null);
             } else if (!tablePaire.containsKey(element)) {
@@ -53,18 +53,23 @@ public class Interview {
         }
 
         // On trouve le minimum count entre les paire et leur compte pour tenir en compte de toutes les possibilites. Ici le meilleur cas reste O(n) ( pas de paire)
-        for (MatchingPair paire : paireSansDuplication){
-            int minCount = min(tableCompteur.get(paire.first).intValue(),tableCompteur.get(paire.second).intValue());
-            for (int i = 0; i < pow(minCount,2); i++){
-                solution.add(new MatchingPair(paire.first,paire.second));
+        for (MatchingPair paire : paireSansDuplication) {
+            if (paire != null) { // verification au debug pr erreur nullpointer
+                int minCount = Math.min(tableCompteur.get(paire.first), tableCompteur.get(paire.second));
+                for (int i = 0; i < pow(minCount +1, 2); i++) {
+                    solution.add(new MatchingPair(paire.first, paire.second));
+                }
             }
+
+
+
         }
         System.out.println(solution.size());
         return solution;
-
-
     }
 }
+
+
 
 
 /* on regarde si c'est egal
