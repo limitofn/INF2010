@@ -11,6 +11,8 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     @SuppressWarnings("unchecked")
     public BinaryHeap( boolean min ){
+        //
+
 	    this.min = min;
 	    currentSize = 0;
 	    array = (AnyType[]) new Comparable[ DEFAULT_CAPACITY + 1];
@@ -21,6 +23,18 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    this.min = min;
 		// COMPLETEZ
 	    // invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
+
+        // On remplit le tableau interne a partir de 1
+        this.array[0] = null;
+        for (int i = 1; i < items.length; i++){
+            this.array[i] = items[i-1];
+        }
+
+        if(min)
+            this.buildMinHeap();
+        else
+            this.buildMaxHeap();
+
     }
     
     public boolean offer( AnyType x ){
