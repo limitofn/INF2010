@@ -25,15 +25,18 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    // invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
 
         // On remplit le tableau interne a partir de 1
+        array = (AnyType[]) new Comparable[ DEFAULT_CAPACITY + 1];
+
         this.array[0] = null;
         for (int i = 1; i < items.length; i++){
             this.array[i] = items[i-1];
-        }
+            this.currentSize++;
+            }
 
         if(min)
-            this.buildMinHeap();
+            this.buildMinHeap(items);
         else
-            this.buildMaxHeap();
+            this.buildMaxHeap(items);
 
     }
     
@@ -45,6 +48,19 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    doubleArray();
 	
 	    // COMPLETEZ
+        this.array[++this.currentSize] = x;
+        int position = this.currentSize;
+
+        if(this.min)
+            while(this.array[parent(position,true)] != null && this.array[position].compareTo(this.array[parent(position,true)]) < 0 ){
+                swapReferences(position,parent(position,true));
+                position = parent(position,true);
+            }
+        else
+            while(this.array[parent(position,true)] != null && this.array[position].compareTo(this.array[parent(position,true)]) > 0){
+                swapReferences(position,parent(position,true));
+                position = parent(position,true);
+            }
 	
 	    return true;
     }
@@ -58,6 +74,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     public AnyType poll(){
 	    //COMPLETEZ
+        //Methode qui permet de retirer l'element en tete du monceau
     	return null/**/;
     }
     
@@ -65,12 +82,19 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    return new HeapIterator();
     }
     
-    private void buildMinHeap(){
+    private void buildMinHeap(AnyType[] items){
 	   //COMPLETEZ
+
+       for(int i = this.currentSize/2; i> 0; i--){
+           percolateDownMinHeap(i,this.currentSize);
+       }
     }
     
-    private void buildMaxHeap(){
+    private void buildMaxHeap(AnyType[] items){
 	    //COMPLETEZ
+        for(int i = this.currentSize/2; i> 0; i--){
+            percolateDownMaxHeap(i,this.currentSize);
+        }
     }
     
     public boolean isEmpty(){
@@ -88,7 +112,14 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     private static int leftChild( int i, boolean heapIndexing ){
-	            return ( heapIndexing ? 2*i : 2*i+1 );
+        return ( heapIndexing ? 2*i : 2*i+1 );
+    }
+
+    private static int parent(int i,boolean heapIndexing){
+        return ( heapIndexing ? i/2 : (i-1)/2 );
+    }
+    private static int rightChild(int i,boolean heapIndexing){
+        return ( heapIndexing ? 2*i+1 : 2*i+2 );
     }
     
     private void swapReferences( int index1, int index2 ){
@@ -104,13 +135,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     @SuppressWarnings("unchecked")
-	private void doubleArray(){
-	    AnyType [ ] newArray;
-	
-	    newArray = (AnyType []) new Comparable[ array.length * 2 ];
-	for( int i = 0; i < array.length; i++ )
-	    newArray[ i ] = array[ i ];
-	    array = newArray;
+    private void doubleArray() {
+        AnyType[] newArray;
+
+        newArray = (AnyType[]) new Comparable[array.length * 2];
+        for (int i = 0; i < array.length; i++)
+            newArray[i] = array[i];
+        array = newArray;
     }
     
     
@@ -132,6 +163,10 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				    void percolateDownMinHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
 	//COMPLETEZ
+        int position = hole;
+        while(array[leftChild(position,heapIndexing)]!= null && array[position].compareTo(array[leftChild(position,heapIndexing)]) > 0){
+            swapReferences(array,position,leftChild(position,heapIndexing));
+        }
     }
     
     /**
@@ -152,6 +187,10 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				    void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
 	//COMPLETEZ
+        int position = hole;
+        while(array[leftChild(position,heapIndexing)]!= null && array[position].compareTo(array[leftChild(position,heapIndexing)]) < 0){
+            swapReferences(array,position,leftChild(position,heapIndexing));
+        }
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
