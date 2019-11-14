@@ -162,12 +162,26 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     private static <AnyType extends Comparable<? super AnyType>>
 				    void percolateDownMinHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
-	//COMPLETEZ
-        int position = hole;
-        while(array[leftChild(position,heapIndexing)]!= null && array[position].compareTo(array[leftChild(position,heapIndexing)]) > 0){
-            swapReferences(array,position,leftChild(position,heapIndexing));
+	//COMPLETEZ -- application notes de cours
+        int child;
+        AnyType tempo = array[hole];
+
+        for(;hole*2 <= size;hole = child){
+            child = hole * 2;
+
+            if (child != size &&
+                    array[child + 1].compareTo(array[child]) < 0)
+                child++; // fils de droite
+            if (array[child].compareTo(tempo) < 0)
+                array[hole] = array[child];
+            else {
+                break;
+            }
         }
+        array[ hole ] = tempo;
+
     }
+
     
     /**
      * @param hole    Position a percoler
@@ -184,13 +198,24 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
      * @param heapIndexing  True si les elements commencent a l'index 1, false sinon
      */
     private static <AnyType extends Comparable<? super AnyType>> 
-				    void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
-    {
-	//COMPLETEZ
-        int position = hole;
-        while(array[leftChild(position,heapIndexing)]!= null && array[position].compareTo(array[leftChild(position,heapIndexing)]) < 0){
-            swapReferences(array,position,leftChild(position,heapIndexing));
+				    void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing ) {
+        //COMPLETEZ -- Application du code des notes de cours
+        int child;
+        AnyType tempo = array[hole];
+
+        for(;hole*2 <= size;hole = child){
+            child = hole * 2;
+
+            if (child != size &&
+                    array[child + 1].compareTo(array[child]) > 0)
+                child++; // fils de droite
+            if (array[child].compareTo(tempo) > 0)
+                array[hole] = array[child];
+            else {
+                break;
+            }
         }
+        array[ hole ] = tempo;
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
