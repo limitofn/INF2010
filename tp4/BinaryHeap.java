@@ -255,22 +255,38 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	return outputString;
     }
     
-    private class HeapIterator implements Iterator {
-	
-	public boolean hasNext() {
-	    //COMPLETEZ
-            return false/**/;
-	}
+    private class HeapIterator implements Iterator
+    {
+        int position;
+        int modificationHeapIterator;
 
-	public Object next() throws NoSuchElementException, 
-				    ConcurrentModificationException, 
-				    UnsupportedOperationException {
-	    //COMPLETEZ
-		return null/**/;
-	}
+        //Constructeur du HeapIterator
+        public HeapIterator(){
+            this.modificationHeapIterator = modifications;
+            this.position = 0;
+        }
+
+	    //Verifie s'il y a un element existant apres celui courant
+        public boolean hasNext() {
+            //COMPLETEZ
+            return ++position <= currentSize;
+        }
+
+        //retourne le prochain element s'il est existant sinon renvoies une erreur
+        public Object next() throws NoSuchElementException,
+                        ConcurrentModificationException,
+                        UnsupportedOperationException {
+            //COMPLETEZ
+            if (!hasNext())
+                throw new NoSuchElementException();
+            if (modificationHeapIterator != modifications)
+                throw new ConcurrentModificationException();
+            else
+                return array[position++];
+	    }
 	
-	public void remove() {
-	    throw new UnsupportedOperationException();
-	}
+	    public void remove()    {
+	        throw new UnsupportedOperationException();
+	    }
     }
 }
