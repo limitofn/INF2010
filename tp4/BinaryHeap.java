@@ -11,8 +11,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     @SuppressWarnings("unchecked")
     public BinaryHeap( boolean min ){
-        //
-
 	    this.min = min;
 	    currentSize = 0;
 	    array = (AnyType[]) new Comparable[ DEFAULT_CAPACITY + 1];
@@ -75,7 +73,15 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public AnyType poll(){
 	    //COMPLETEZ
         //Methode qui permet de retirer l'element en tete du monceau
-    	return null/**/;
+        if(isEmpty())
+    	    return null;
+        AnyType headElement = array[1];
+        array[1] = array[currentSize--];
+        if(min)
+            percolateDownMinHeap(1, currentSize);
+        else
+            percolateDownMaxHeap(1, currentSize);
+        return headElement;
     }
     
     public Iterator<AnyType> iterator(){
