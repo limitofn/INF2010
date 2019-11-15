@@ -227,22 +227,68 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSort( AnyType[] a )
     {
-	//COMPLETEZ
+	    //COMPLETEZ
+        for (int i = a.length/2; i >= 0; i--)
+            percolateDownMinHeap(a, i, a.length, true);
+        for (int i = a.length - 1; i > 0; i-- )
+        {
+            swapReferences(a,0,i);
+            percolateDownMinHeap(a, 0, i, true);
+        }
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSortReverse( AnyType[] a )
     {
-	//COMPLETEZ
+	    //COMPLETEZ
+        for (int i = a.length/2; i >= 0; i--)
+            percolateDownMaxHeap(a, i, a.length, true);
+        for (int i = a.length - 1; i > 0; i-- )
+        {
+            swapReferences(a,0,i);
+            percolateDownMaxHeap(a, 0, i, true);
+        }
     }
     
     public String nonRecursivePrintFancyTree()
     {
-	String outputString = "";
-	
-	//COMPLETEZ
+        //COMPLETEZ
+	    String outputString = "";
+	    String prefix = "";
+	    int treeIndex = 1;
+	    Boolean fromLeftChild = false;
 
-	return outputString;
+	    while (treeIndex > 0)
+	    {
+	        outputString += prefix + "|__" + array[treeIndex] + "\n";
+
+	        //Left child
+            if (treeIndex*2 <= currentSize)
+            {
+                prefix += fromLeftChild ? "|  " : "   ";
+                fromLeftChild = true;
+                treeIndex *= 2;
+            }
+            //Next child from the last child print
+            else if (fromLeftChild & treeIndex + 1 <= currentSize)
+            {
+                fromLeftChild = false;
+                treeIndex++;
+            }
+            //If no more left child
+            else {
+                do {
+                    treeIndex = treeIndex/2;
+                    if (treeIndex > 0)
+                        prefix = prefix.substring(0, prefix.length() - 3);
+                } while(treeIndex % 2 != 0 & treeIndex > 0);
+
+                if (treeIndex > 0)
+                    treeIndex += 1;
+                fromLeftChild = false;
+            }
+        }
+	    return outputString;
     }
     
     public String printFancyTree()
@@ -252,50 +298,66 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     private String printFancyTree( int index, String prefix)
     {
-	String outputString = "";
-	
-	outputString = prefix + "|__";
-	
-	if( index <= currentSize )
-	    {
-		boolean isLeaf = index > currentSize/2;
-		
-		outputString += array[ index ] + "\n";
-		
-		String _prefix = prefix;
-		
-		if( index%2 == 0 )
-		    _prefix += "|  "; // un | et trois espace
-		else
-		    _prefix += "   " ; // quatre espaces
-		
-		if( !isLeaf ) {
-		    outputString += printFancyTree( 2*index, _prefix);
-		    outputString += printFancyTree( 2*index + 1, _prefix);
-		}
-	    }
-	else
-	    outputString += "null\n";
-	
-	return outputString;
+        String outputString = "";
+
+        outputString = prefix + "|__";
+
+        if( index <= currentSize )
+            {
+                boolean isLeaf = index > currentSize/2;
+
+                outputString += array[ index ] + "\n";
+
+                String _prefix = prefix;
+
+                if( index%2 == 0 )
+                    _prefix += "|  "; // un | et trois espace
+                else
+                    _prefix += "   " ; // quatre espaces
+
+                if( !isLeaf ) {
+                    outputString += printFancyTree( 2*index, _prefix);
+                    outputString += printFancyTree( 2*index + 1, _prefix);
+                }
+            }
+        else
+            outputString += "null\n";
+
+        return outputString;
     }
     
-    private class HeapIterator implements Iterator {
-	
-	public boolean hasNext() {
-	    //COMPLETEZ
-            return false/**/;
-	}
+    private class HeapIterator implements Iterator
+    {
+        int position;
+        int modificationHeapIterator;
 
-	public Object next() throws NoSuchElementException, 
-				    ConcurrentModificationException, 
-				    UnsupportedOperationException {
-	    //COMPLETEZ
-		return null/**/;
-	}
+        //Constructeur du HeapIterator
+        public HeapIterator(){
+            this.modificationHeapIterator = modifications;
+            this.position = 0;
+        }
+
+	    //Verifie s'il y a un element existant apres celui courant
+        public boolean hasNext() {
+            //COMPLETEZ
+            return ++position <= currentSize;
+        }
+
+        //retourne le prochain element s'il est existant sinon renvoies une erreur
+        public Object next() throws NoSuchElementException,
+                        ConcurrentModificationException,
+                        UnsupportedOperationException {
+            //COMPLETEZ
+            if (!hasNext())
+                throw new NoSuchElementException();
+            if (modificationHeapIterator != modifications)
+                throw new ConcurrentModificationException();
+            else
+                return array[position++];
+	    }
 	
-	public void remove() {
-	    throw new UnsupportedOperationException();
-	}
+	    public void remove()    {
+	        throw new UnsupportedOperationException();
+	    }
     }
 }
