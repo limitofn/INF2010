@@ -31,8 +31,8 @@ public class Graph {
 		ArrayList <Edge> edgesEnd = new ArrayList<Edge>();
 		for (Edge i : edges)
 		{
-			if (e.getDestination() == dest)
-				edgesEnd.add(i)
+			if (i.getDestination() == dest)
+				edgesEnd.add(i);
 		}
 
 		return edgesEnd;
