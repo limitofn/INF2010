@@ -39,7 +39,10 @@ public class Dijkstra {
 
 	private Edge getMinimum (Edge e1, Edge e2) {
 		// A completer
-		return null;
+		if (e1.getDistance() < e2.getDistance())
+			return e1;
+		else
+			return e2;
 	}
 	
 	public String printShortPath(Node source, Node destination) {
