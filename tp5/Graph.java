@@ -9,17 +9,33 @@ public class Graph {
 	private List<Edge> edges; // Les arcs
 	
 	public Graph() {
-		// A compléter 
+		this.nodes = null;
+		this.edges = null;
 	}
 	
 	public List<Edge> getEdgesGoingFrom(Node source) {
-		// A complèter 
-		return null;
+
+		ArrayList <Edge> beginningEdges = new ArrayList<Edge>();
+
+		for (Edge i : edges)
+		{
+			if(i.getSource() == source)
+				beginningEdges.add(i);
+		}
+
+		return beginningEdges;
 		
 	}
 	public List<Edge> getEdgesGoingTo(Node dest) {
-		// A complèter 
-		return null;
+
+		ArrayList <Edge> edgesEnd = new ArrayList<Edge>();
+		for (Edge i : edges)
+		{
+			if (e.getDestination() == dest)
+				edgesEnd.add(i)
+		}
+
+		return edgesEnd;
 	}
 	
 	// Accesseurs 
