@@ -47,7 +47,25 @@ public class Dijkstra {
 	
 	public String printShortPath(Node source, Node destination) {
 		// A completer
-		return null;
+		this.findPath(source, destination);
+		StringBuilder track = new StringBuilder();
+
+		Edge lastEdge = path.pop();
+		int pathLenght = lastEdge.getDistance();
+
+		track.append(lastEdge.getDestination().getName() + "<-");
+		while (!path.empty())
+		{
+			if (!path.empty() && path.peek().getDestination() == lastEdge.getSource())
+			{
+				track.append(lastEdge.getSource().getName() + "<-");
+				lastEdge = path.pop();
+			}
+			else
+				path.pop();
+		}
+		System.out.print ("La longueur du chemin le plus court est: " + pathLenght);
+		return "Le chemin le plus court est: " + track.reverse().toString();
 	}
 
 	public void showTable() {
