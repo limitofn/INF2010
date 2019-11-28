@@ -66,12 +66,12 @@ public class Main {
 		
 		Dijkstra d = new Dijkstra(g);
 		
-		d.findPath(null, null/* Spécifiez les paramètres */);
+		d.findPath(g.getNodes().get(0), g.getNodes().get(g.getNodes().size()-1));
 		
 		d.showTable();
 
 		// Partie 3 : Afficher le chemin le plus court
-		System.out.println(d.printShortPath(null, null/* Spécifiez les paramètres */));
+		System.out.println(d.printShortPath(g.getNodes().get(0), g.getNodes().get(g.getNodes().size()-1)));
 	
 	}
 }
