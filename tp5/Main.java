@@ -22,7 +22,7 @@ public class Main {
 		Edge edgeAC = new Edge(nodeA,nodeC,1);
 		Edge edgeBE = new Edge(nodeB,nodeE,3);
 		Edge edgeBC = new Edge(nodeB,nodeC,2);
-		Edge edgeEC = new Edge(nodeE,nodeC,3);
+		Edge edgeCE = new Edge(nodeC,nodeE,3);
 		Edge edgeBD = new Edge(nodeB,nodeD,1);
 		Edge edgeCD = new Edge(nodeC,nodeD,4);
 		Edge edgeCF = new Edge(nodeC,nodeF,5);
@@ -49,7 +49,7 @@ public class Main {
 		edgesList.add(edgeAC);
 		edgesList.add(edgeBE);
 		edgesList.add(edgeBC);
-		edgesList.add(edgeEC);
+		edgesList.add(edgeCE);
 		edgesList.add(edgeBD);
 		edgesList.add(edgeCD);
 		edgesList.add(edgeCF);
@@ -66,7 +66,7 @@ public class Main {
 		
 		Dijkstra d = new Dijkstra(g);
 		
-		d.findPath(g.getNodes().get(0), g.getNodes().get(g.getNodes().size()-1));
+		d.findPath(nodeA, nodeG);
 		
 		d.showTable();
 

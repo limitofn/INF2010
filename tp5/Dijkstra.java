@@ -109,24 +109,22 @@ public class Dijkstra {
 	public String printShortPath(Node source, Node destination) {
 		// A completer
 		this.findPath(source, destination);
-		StringBuilder track = new StringBuilder();
-
-		Edge lastEdge = path.pop();
-		int pathLenght = lastEdge.getDistance();
-
-		track.append(lastEdge.getDestination().getName() + "<-");
-		while (!path.empty())
-		{
-			if (!path.empty() && path.peek().getDestination() == lastEdge.getSource())
-			{
-				track.append(lastEdge.getSource().getName() + "<-");
-				lastEdge = path.pop();
+		String track = new String();
+		int pathLenght = 0;
+		int pathSize = path.size();
+		for (int i = path.size(); i > 0; i--){
+			Edge edgeTmp = path.pop();
+			if (i == pathSize)
+				track += edgeTmp.getSource().getName() + "->";
+			else if(i>1)
+				track += edgeTmp.getDestination().getName() + "->";
+			else if (i==1) {
+				track += edgeTmp.getDestination().getName();
+				pathLenght = edgeTmp.getDistance();
 			}
-			else
-				path.pop();
 		}
-		System.out.print ("La longueur du chemin le plus court est: " + pathLenght);
-		return "Le chemin le plus court est: " + track.reverse().toString();
+		System.out.print ("La longueur du chemin le plus court est: " + pathLenght + "\n");
+		return ("Le plus court chemin est " + track);
 	}
 
 	public void showTable() {
