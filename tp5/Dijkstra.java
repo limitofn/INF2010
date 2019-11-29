@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
+import java.util.*;
 
 
 public class Dijkstra {
@@ -99,7 +94,6 @@ public class Dijkstra {
 	}
 
 	private Edge getMinimum (Edge e1, Edge e2) {
-		// A completer
 		if (e1.getDistance() < e2.getDistance())
 			return e1;
 		else
@@ -107,11 +101,11 @@ public class Dijkstra {
 	}
 	
 	public String printShortPath(Node source, Node destination) {
-		// A completer
 		this.findPath(source, destination);
 		String track = new String();
 		int pathLenght = 0;
 		int pathSize = path.size();
+		//On entre les noeuds dans la variable track pour affichage
 		for (int i = path.size(); i > 0; i--){
 			Edge edgeTmp = path.pop();
 			if (i == pathSize)
@@ -129,8 +123,28 @@ public class Dijkstra {
 
 	public void showTable() {
 		List<Node> nodes = this.graph.getNodes();
+		String[][] table = new String [dijkstraTable.length][nodes.size()];
 
-		// A completer
-		
+		// Premiere ligne pour voir bon fonctionnement
+		for (int i = 0; i < nodes.size(); i++){
+			table[0][i] = nodes.get(i).getName()+ " ";
+		}
+		System.out.print("Tableau de Dijkstra" + "\n");
+		System.out.println("Iterations" + Arrays.deepToString(table[0]));
+
+		//Remplissage du tableau avec les noeuds et les distances
+		for (int i = 0; i < dijkstraTable.length; i++)
+		{
+			for(int j = 0; j < nodes.size(); j++)
+			{
+				if (dijkstraTable[i].containsKey(nodes.get(j)))
+					table[i][j] = dijkstraTable[i].get(nodes.get(j)).getDistance() + dijkstraTable[i].get(nodes.get(j)).getSource().getName();
+				else
+					table[i][j] = "\t";
+			}
+		}
+		//Print du tableau
+		for (int i = 0; i < dijkstraTable.length; i++)
+			System.out.println("         " + (i+1) + Arrays.deepToString(table[i]));
 	}
 }

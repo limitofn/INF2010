@@ -6,9 +6,9 @@ public class Main {
 		Graph g = new Graph();
 		System.out.println("TP05 : Graphes");
 		
-		// Partie 1: A completer : Création du graphe
+		// Partie 1: Création du graphe
 
-		//Nodes Creation
+		//Creation des noeuds
 		Node nodeA = new Node(0, "A");
 		Node nodeB = new Node(1, "B");
 		Node nodeC = new Node(2, "C");
@@ -17,7 +17,7 @@ public class Main {
 		Node nodeF = new Node(5, "F");
 		Node nodeG = new Node(6, "G");
 
-		//Edges Creation
+		//Creation des edges
 		Edge edgeAB = new Edge(nodeA,nodeB,2);
 		Edge edgeAC = new Edge(nodeA,nodeC,1);
 		Edge edgeBE = new Edge(nodeB,nodeE,3);
@@ -31,7 +31,7 @@ public class Main {
 		Edge edgeDG = new Edge(nodeD,nodeG,5);
 		Edge edgeFG = new Edge(nodeF,nodeG,2);
 
-		//Add nodes to the graph
+		//Ajout des noeuds
 		ArrayList <Node> nodeList = new ArrayList<Node>();
 		nodeList.add(nodeA);
 		nodeList.add(nodeB);
@@ -43,7 +43,7 @@ public class Main {
 
 		g.setNodes(nodeList);
 
-		//Add edges to the graph
+		//Ajout des edges
 		ArrayList<Edge>edgesList = new ArrayList<Edge>();
 		edgesList.add(edgeAB);
 		edgesList.add(edgeAC);
@@ -62,7 +62,7 @@ public class Main {
 
 
 
-		// Partie 2: A completer : Implémentation de l’algorithme Dijkstra
+		// Partie 2: Implémentation de l’algorithme Dijkstra
 		
 		Dijkstra d = new Dijkstra(g);
 		
@@ -71,7 +71,7 @@ public class Main {
 		d.showTable();
 
 		// Partie 3 : Afficher le chemin le plus court
-		System.out.println(d.printShortPath(g.getNodes().get(0), g.getNodes().get(g.getNodes().size()-1)));
+		System.out.println(d.printShortPath(nodeA, nodeG));
 	
 	}
 }
